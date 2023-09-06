@@ -45,13 +45,27 @@ namespace WebVideojuegos3Capas.Controllers
                     return RedirectToAction("Index");
                 }
 
+                bool esFutura = negocio.EsFechaFutura(videojuego.fechaLanzamiento);
+                if(esFutura == true)
+                {
+                    TempData["error"] = $"La fecha ingresada es una fecha futura";
+                    return RedirectToAction("Index");
+                }
+
                 //Crear la ruta donde se va a guardar la imagen
                 string rutaArchivo = Path.Combine(Server.MapPath("~/Imagenes"), ArchivoImagen.FileName);
                 //Guardar el archivo
                 ArchivoImagen.SaveAs(rutaArchivo);
-
-                
                 videojuego.imagen = ArchivoImagen.FileName;
+
+                bool esValido = negocio.EsFormatoValido(ArchivoImagen.FileName);
+                if (esValido == false)
+                {
+                    TempData["error"] = $"El formato de imagen ingresado no es valido";
+                    return RedirectToAction("Index");
+                }
+
+
                 negocio.AgregarVideojuego(videojuego);
 
                 TempData["mensaje"] = $"El juego {videojuego.nombre} se agrego correctamente";
@@ -92,7 +106,30 @@ namespace WebVideojuegos3Capas.Controllers
                 ArchivoImagen.SaveAs(rutaArchivo);
 
                 N_Game negocio = new N_Game();
+
+                //Validaciones 
+                bool existe = negocio.ExisteJuego(juego.nombre);
+                if (existe == true)
+                {
+                    TempData["error"] = $"Ya existe el juego {juego.nombre}";
+                    return RedirectToAction("Index");
+                }
+
+                bool esFutura = negocio.EsFechaFutura(juego.fechaLanzamiento);
+                if (esFutura == true)
+                {
+                    TempData["error"] = $"La fecha ingresada es una fecha futura";
+                    return RedirectToAction("Index");
+                }
+
                 juego.imagen = ArchivoImagen.FileName;
+                bool esValido = negocio.EsFormatoValido(ArchivoImagen.FileName);
+                if (esValido == false)
+                {
+                    TempData["error"] = $"El formato de imagen ingresado no es valido";
+                    return RedirectToAction("Index");
+                }
+
                 negocio.GuardarEdicion(juego);
 
                 TempData["mensaje"] = $"El juego {juego.nombre} se actualizo correctamente";

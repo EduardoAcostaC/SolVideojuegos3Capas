@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Negocio
@@ -55,6 +56,33 @@ namespace Negocio
             }
         }
 
+        public bool EsFechaFutura(DateTime fecha)
+        {
+            DateTime fechaActual = DateTime.Now;
+
+            if(fecha > fechaActual)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool EsFormatoValido(string nombreArchivo)
+        {
+            Regex regex = new Regex(@"\.(jpg|png)$", RegexOptions.IgnoreCase);
+
+            if (regex.IsMatch(nombreArchivo))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }
