@@ -1,0 +1,45 @@
+﻿@using Entidades
+
+@model E_Game
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VistaEliminar</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-2"> Eliminar Videojuego </h1>
+
+        <h6 class="mb-3 display-5">¿Deseas eliminar al videojuego @Model.nombre?</h6>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+            <div class="col">
+                <div class="card text-dark bg-light" style=" width: 18rem;">
+
+                    <img src="~/Imagenes/@Model.imagen" class="card-img-top" alt="@Model.nombre" style="height: 25rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"> @Model.nombre </h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Fecha de Lanzamiento: @Model.fechaLanzamiento.ToString("yyyy-MM-dd")</li>
+                        <li class="list-group-item">Precio: @Model.precio.ToString("c")</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="/Home/EliminarVideojuego?id=@Model.idVideojuego" class="btn btn-primary">Eliminar</a>
+                        <a href="/Home/Index" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

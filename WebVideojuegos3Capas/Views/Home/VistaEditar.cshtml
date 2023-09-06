@@ -1,0 +1,49 @@
+﻿@using Entidades
+
+@model E_Game
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VistaEditar</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-2"> Editar Videojuego </h1>
+
+      
+
+        <form class="mt-3" action="/Home/EditarPOST" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" name="idVideojuego" value="@Model.idVideojuego" />
+
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" value="@Model.nombre" />
+            <br />
+
+            <label class="form-label">Fecha de Lanzamiento</label>
+            <input class="form-control" type="date" name="fechaLanzamiento" value="@Model.fechaLanzamiento.ToString("yyyy-MM-dd")" />
+            <br />
+
+            <label class="form-label">Precio</label>
+            <input class="form-control" type="text" name="precio" value="@Model.precio" />
+            <br />
+
+            <label class="form-label">Imagen</label>
+            <input class="form-control" type="file" name="ArchivoImagen" value="~/Imagenes/@Model.imagen"/>
+            <br />
+
+            <input type="submit" class="btn btn-success" value="Guardar" />
+            <a href="~/Home/Index" class="btn btn-primary"> Regresar </a>
+        </form>
+
+    </div>
+</body>
+</html>
